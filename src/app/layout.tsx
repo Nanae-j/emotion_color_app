@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { jaJP } from "@clerk/localizations";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      localization={jaJP}
+      // appearance={{
+      //   layout: {
+      //     unsafe_disableDevelopmentModeWarnings: true,
+      //   },
+      // }}
+    >
       <html lang="jp">
         <body className="font-zen text-default">{children}</body>
       </html>
