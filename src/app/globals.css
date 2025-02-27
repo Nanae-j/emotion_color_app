@@ -1,1 +1,16 @@
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-zen: "Zen Maru Gothic", serif;
+  --shadow: 0 4px 30px rgba(245, 245, 245, 0.8);
+  --color-default: #696969;
+  --color-blue: #0071ff;
+  --color-pink: #fb00ff;
+  --color-green: #73ff00;
+  --color-yellow: #ffe600;
+  --color-orange: #ff8800;
+  --color-red: #ff0004;
+  --color-purple: #8c00ff;
+  --color-base: #fffaf0;
+}
