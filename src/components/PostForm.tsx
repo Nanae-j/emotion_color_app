@@ -1,12 +1,12 @@
 const PostForm = () => {
   return (
-    <div className="mb-20">
+    <div className="mb-15">
       <form action="">
         <textarea
           name=""
           id=""
           placeholder="Share your thoughts and feelings..."
-          className="h-32 w-full resize-none rounded-2xl border-1 border-[#f5f5f5] bg-white p-3"
+          className="border-whitesmoke h-32 w-full resize-none rounded-2xl border-1 bg-white p-3"
         />
         <div className="my-5 flex items-center gap-5">
           {/* 各色 */}
@@ -49,7 +49,12 @@ const PostForm = () => {
           </div>
           {/* 各色 */}
         </div>
-        <button className="rounded-md bg-white px-1 py-3">COLOR IT ...</button>
+        <button className="flex items-center gap-3 rounded-md px-1 py-3 transition-all ease-in">
+          <span className="font-black tracking-wider text-sky-400">
+            COLOR IT ...
+          </span>
+          <span className="h-[10px] w-[10px] animate-ping rounded-full bg-sky-400 opacity-75"></span>
+        </button>
       </form>
     </div>
   );
