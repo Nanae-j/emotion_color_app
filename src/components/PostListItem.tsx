@@ -8,7 +8,7 @@ const PostListItem = () => {
     <>
       <li className="border-yellow mb-8 min-h-30 rounded-md border-2 p-5">
         <div className="mb-5 flex items-center gap-3">
-          <div className="relative h-[50px] w-[50px] overflow-hidden rounded-full">
+          <div className="relative -z-10 h-[50px] w-[50px] overflow-hidden rounded-full">
             <Image
               src="https://placehold.jp/150x150.png"
               alt="アバター"
