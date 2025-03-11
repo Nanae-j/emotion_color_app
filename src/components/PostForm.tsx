@@ -4,6 +4,7 @@ import { addPostAction } from "@/actions/addPostAction";
 import { colors } from "@/data/colorsData";
 import { EmotionColor } from "@/types/types";
 import { useActionState, useEffect, useState } from "react";
+import { useFormStatus } from "react-dom";
 import { FiSend } from "react-icons/fi";
 
 const PostForm = () => {
@@ -87,13 +88,23 @@ const PostForm = () => {
     setSelectedColors(resetColors);
   };
 
+  const SubmitButton = () => {
+    const { pending } = useFormStatus();
+    return (
+      <button
+        className="bg-default hover:outline-default hover:text-default rounded-md px-6 py-2 text-xl text-white transition-colors hover:bg-white hover:outline-2 disabled:bg-gray-300"
+        disabled={pending}
+      >
+        <FiSend />
+      </button>
+    );
+  };
+
   return (
     <div className="mb-28">
       <form action={handleSubmit}>
         <div className="mb-3 text-right">
-          <button className="bg-default hover:outline-default hover:text-default rounded-md px-6 py-2 text-xl text-white transition-colors hover:bg-white hover:outline-2">
-            <FiSend />
-          </button>
+          <SubmitButton />
         </div>
         <textarea
           name="postContent"
