@@ -1,26 +1,16 @@
 "use client";
 
+import { addPostAction } from "@/actions/addPostAction";
+import { colors } from "@/data/colorsData";
+import { EmotionColor } from "@/types/types";
 import { useState } from "react";
 import { FiSend } from "react-icons/fi";
 
 const PostForm = () => {
-  const [colors, setColors] = useState([
-    { emotion: "unhurried", label: "ノンビリ", value: "green", checked: false },
-    { emotion: "excited", label: "ワクワク", value: "yellow", checked: false },
-    { emotion: "smiling", label: "ニコニコ", value: "orange", checked: false },
-    { emotion: "thrill", label: "トキメキ", value: "pink", checked: false },
-    { emotion: "irritation", label: "イライラ", value: "red", checked: false },
-    { emotion: "sniffling", label: "シクシク", value: "blue", checked: false },
-    {
-      emotion: "uneasiness",
-      label: "モヤモヤ",
-      value: "purple",
-      checked: false,
-    },
-  ]);
+  const [selectedColors, setSelectedColors] = useState<EmotionColor[]>(colors);
 
   const handleChange = (e: { target: { value: string } }) => {
-    const newColors = colors.map((color) => {
+    const newColors = selectedColors.map((color) => {
       const newColor = { ...color };
 
       if (newColor.emotion === e.target.value) {
@@ -30,26 +20,29 @@ const PostForm = () => {
       return newColor;
     });
 
-    setColors(newColors);
+    setSelectedColors(newColors);
   };
 
   return (
     <div className="mb-28">
-      <form action="">
+      <form action={addPostAction}>
         <div className="mb-3 text-right">
-          <button className="bg-default hover:outline-default hover:text-default rounded-md px-6 py-2 text-xl text-white transition-colors hover:bg-white hover:outline-2">
+          <button
+            type="submit"
+            className="bg-default hover:outline-default hover:text-default rounded-md px-6 py-2 text-xl text-white transition-colors hover:bg-white hover:outline-2"
+          >
             <FiSend />
           </button>
         </div>
         <textarea
-          name=""
-          id=""
+          name="postContent"
+          id="postContent"
           placeholder="Share your thoughts and feelings..."
           className="border-whitesmoke outline-default h-32 w-full resize-none rounded-2xl border-1 bg-white p-3"
         />
         <p className="flex items-center gap-1">
           今の気分は：
-          {colors.map((color) => {
+          {selectedColors.map((color) => {
             return color.checked ? (
               <span
                 key={color.label}
@@ -63,7 +56,7 @@ const PostForm = () => {
           })}
         </p>
         <div className="my-5 flex flex-wrap items-center gap-5">
-          {colors.map((color, index) => {
+          {selectedColors.map((color, index) => {
             return (
               <div key={color.value}>
                 <input
@@ -73,6 +66,7 @@ const PostForm = () => {
                   className="sr-only" // デフォルトのチェックボックスを非表示
                   checked={color.checked}
                   onChange={handleChange}
+                  name={color.emotion}
                 />
                 <div className="inline-block">
                   <label
