@@ -12,3 +12,103 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// ユーザーモデル
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String
+  username      String    @unique
+  bio           String?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // リレーション
+  posts         Post[]              // ユーザーが投稿したポスト
+  comments      Comment[]           // ユーザーが投稿したコメント
+  actions       Action[]            // ユーザーがしたアクション (共感、応援など)
+  followedBy    Follow[]    @relation("following")   // このユーザーをフォローしているユーザー
+  following     Follow[]    @relation("follower")    // このユーザーがフォローしているユーザー
+}
+
+// フォロー関係モデル
+model Follow {
+  id          String    @id @default(cuid())
+  followerId  String    // フォローしているユーザーID
+  followingId String    // フォローされているユーザーID
+  createdAt   DateTime  @default(now())
+
+  // リレーション
+  follower    User      @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User      @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  // 複合ユニーク制約 - 同じユーザーの組み合わせは1回だけ登録可能
+  @@unique([followerId, followingId])
+}
+
+// ポストモデル
+model Post {
+  id        String    @id @default(cuid())
+  content   String
+  userId    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // リレーション
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments  Comment[]
+  actions   Action[]
+  colors    PostColor[]
+}
+
+// ポストのカラー選択モデル
+model PostColor {
+  id        String    @id @default(cuid())
+  postId    String
+  color     String    // カラーコードまたは名前
+  createdAt DateTime  @default(now())
+
+  // リレーション
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  // 同じポストに同じカラーは一度だけ
+  @@unique([postId, color])
+}
+
+// アクションタイプの列挙型
+enum ActionType {
+  EMPATHY    // 共感
+  SUPPORT    // 応援
+  EXPERIENCE // 経験あり
+}
+
+// アクションモデル
+model Action {
+  id        String     @id @default(cuid())
+  type      ActionType
+  userId    String
+  postId    String
+  createdAt DateTime   @default(now())
+
+  // リレーション
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  // 同じユーザーが同じポストに同じタイプのアクションは一度だけ
+  @@unique([userId, postId, type])
+}
+
+// コメントモデル
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  userId    String
+  postId    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // リレーション
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
