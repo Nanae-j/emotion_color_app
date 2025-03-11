@@ -59,7 +59,7 @@ const PostForm = () => {
             );
           })}
         </p>
-        <div className="my-5 flex items-center gap-5">
+        <div className="my-5 flex flex-wrap items-center gap-5">
           {colors.map((color, index) => {
             return (
               <div key={color.value}>

@@ -3,7 +3,7 @@ import PostListItem from "./PostListItem";
 const PostList = () => {
   return (
     <div className="">
-      <ul className="h-[80vh] overflow-y-scroll px-5 py-10">
+      <ul className="h-[80vh] overflow-y-scroll py-10 md:px-5">
         <PostListItem />
       </ul>
     </div>

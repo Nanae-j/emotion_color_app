@@ -7,10 +7,10 @@ const ProfilePage = () => {
     <div>
       <Header />
       <main className="h-screen overflow-x-hidden">
-        <div className="px-10 pt-40 pb-20">
-          <article className="mb-5 flex justify-between">
+        <div className="max-w-theme-max-width mx-auto px-5 pt-30 pb-20 md:px-10 md:pt-40">
+          <article className="mb-5 md:flex md:justify-between">
             {/* 画像・情報 */}
-            <div className="flex-1">
+            <div className="mb-8 flex-1 md:mb-0">
               <div className="relative -z-10 mb-5 h-[10rem] w-[10rem] overflow-hidden rounded-full">
                 <Image
                   src="https://placehold.jp/150x150.png"

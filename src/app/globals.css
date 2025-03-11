@@ -15,4 +15,5 @@
   --color-base: #fffaf0;
   --color-whitesmoke: #f5f5f5;
   --color-lightgray: #dcdcdc;
+  --spacing-theme-max-width: 1500px;
 }

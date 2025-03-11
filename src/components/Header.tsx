@@ -21,7 +21,7 @@ const Header = () => {
         <SignedIn>
           <Link
             href="/profile"
-            className="hover:text-orange p-1 text-sm transition-all"
+            className="hover:text-orange p-1 text-xs transition-all md:text-sm"
           >
             プロフィール
           </Link>
