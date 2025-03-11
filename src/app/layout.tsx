@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { jaJP } from "@clerk/localizations";
 import "./globals.css";
+import Header from "../components/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +24,12 @@ export default function RootLayout({
       // }}
     >
       <html lang="jp">
-        <body className="font-zen text-default">{children}</body>
+        <body className="font-zen text-default">
+          <div className="relative">
+            <Header />
+          </div>
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );

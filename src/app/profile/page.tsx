@@ -1,11 +1,9 @@
-import Header from "@/components/Header";
 import PostList from "@/components/PostList";
 import Image from "next/image";
 
 const ProfilePage = () => {
   return (
     <div>
-      <Header />
       <main className="h-screen overflow-x-hidden">
         <div className="max-w-theme-max-width mx-auto px-5 pt-30 pb-20 md:px-10 md:pt-40">
           <article className="mb-5 md:flex md:justify-between">
