@@ -5,22 +5,25 @@ import { FiSend } from "react-icons/fi";
 
 const PostForm = () => {
   const [colors, setColors] = useState([
-    { label: "ノンビリ", value: "green", checked: false },
-    { label: "ワクワク", value: "yellow", checked: false },
-    { label: "ニコニコ", value: "orange", checked: false },
-    { label: "トキメキ", value: "pink", checked: false },
-    { label: "イライラ", value: "red", checked: false },
-    { label: "シクシク", value: "blue", checked: false },
-    { label: "モヤモヤ", value: "purple", checked: false },
+    { emotion: "unhurried", label: "ノンビリ", value: "green", checked: false },
+    { emotion: "excited", label: "ワクワク", value: "yellow", checked: false },
+    { emotion: "smiling", label: "ニコニコ", value: "orange", checked: false },
+    { emotion: "thrill", label: "トキメキ", value: "pink", checked: false },
+    { emotion: "irritation", label: "イライラ", value: "red", checked: false },
+    { emotion: "sniffling", label: "シクシク", value: "blue", checked: false },
+    {
+      emotion: "uneasiness",
+      label: "モヤモヤ",
+      value: "purple",
+      checked: false,
+    },
   ]);
-
-  // const [color, setColor] = useState("");
 
   const handleChange = (e: { target: { value: string } }) => {
     const newColors = colors.map((color) => {
       const newColor = { ...color };
 
-      if (newColor.label === e.target.value) {
+      if (newColor.emotion === e.target.value) {
         newColor.checked = !newColor.checked;
       }
 
@@ -49,7 +52,7 @@ const PostForm = () => {
           {colors.map((color) => {
             return color.checked ? (
               <span
-                key={color.value}
+                key={color.label}
                 className={`${color.value === "purple" ? "text-purple" : ""} ${color.value === "red" ? "text-red" : ""} ${color.value === "orange" ? "text-orange" : ""} ${color.value === "yellow" ? "text-yellow" : ""} ${color.value === "green" ? "text-green" : ""} ${color.value === "pink" ? "text-pink" : ""} ${color.value === "blue" ? "text-blue" : ""}`}
               >
                 {color.label}
@@ -66,7 +69,7 @@ const PostForm = () => {
                 <input
                   type="checkbox"
                   id={`color-${index}`}
-                  value={color.label}
+                  value={color.emotion}
                   className="sr-only" // デフォルトのチェックボックスを非表示
                   checked={color.checked}
                   onChange={handleChange}
