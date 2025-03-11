@@ -5,13 +5,13 @@ import { FiSend } from "react-icons/fi";
 
 const PostForm = () => {
   const [colors, setColors] = useState([
-    { label: "ノンビリ", value: "#73FF00", checked: false },
-    { label: "ワクワク", value: "#FFE600", checked: false },
-    { label: "ニコニコ", value: "#FF8800", checked: false },
-    { label: "トキメキ", value: "#FB00FF", checked: false },
-    { label: "イライラ", value: "#FF0004", checked: false },
-    { label: "シクシク", value: "#0071FF", checked: false },
-    { label: "モヤモヤ", value: "#8C00FF", checked: false },
+    { label: "ノンビリ", value: "green", checked: false },
+    { label: "ワクワク", value: "yellow", checked: false },
+    { label: "ニコニコ", value: "orange", checked: false },
+    { label: "トキメキ", value: "pink", checked: false },
+    { label: "イライラ", value: "red", checked: false },
+    { label: "シクシク", value: "blue", checked: false },
+    { label: "モヤモヤ", value: "purple", checked: false },
   ]);
 
   // const [color, setColor] = useState("");
@@ -50,7 +50,7 @@ const PostForm = () => {
             return color.checked ? (
               <span
                 key={color.value}
-                className={`${color.value === "#8C00FF" ? "text-[#8C00FF]" : ""} ${color.value === "#FF0004" ? "text-[#FF0004]" : ""} ${color.value === "#FF8800" ? "text-[#FF8800]" : ""} ${color.value === "#FFE600" ? "text-[#FFE600]" : ""} ${color.value === "#73FF00" ? "text-[#73FF00]" : ""} ${color.value === "#FB00FF" ? "text-[#FB00FF]" : ""} ${color.value === "#0071FF" ? "text-[#0071FF]" : ""}`}
+                className={`${color.value === "purple" ? "text-purple" : ""} ${color.value === "red" ? "text-red" : ""} ${color.value === "orange" ? "text-orange" : ""} ${color.value === "yellow" ? "text-yellow" : ""} ${color.value === "green" ? "text-green" : ""} ${color.value === "pink" ? "text-pink" : ""} ${color.value === "blue" ? "text-blue" : ""}`}
               >
                 {color.label}
               </span>
@@ -77,7 +77,7 @@ const PostForm = () => {
                     className="flex cursor-pointer flex-col items-center"
                   >
                     <div
-                      className={` ${color.value === "#8C00FF" ? "bg-[#8C00FF]" : ""} ${color.value === "#FF0004" ? "bg-[#FF0004]" : ""} ${color.value === "#FF8800" ? "bg-[#FF8800]" : ""} ${color.value === "#FFE600" ? "bg-[#FFE600]" : ""} ${color.value === "#73FF00" ? "bg-[#73FF00]" : ""} ${color.value === "#FB00FF" ? "bg-[#FB00FF]" : ""} ${color.value === "#0071FF" ? "bg-[#0071FF]" : ""} ${color.checked === true ? "h-12 w-12" : ""} h-8 w-8 rounded-full transition-all`}
+                      className={` ${color.value === "purple" ? "bg-purple" : ""} ${color.value === "red" ? "bg-red" : ""} ${color.value === "orange" ? "bg-orange" : ""} ${color.value === "yellow" ? "bg-yellow" : ""} ${color.value === "green" ? "bg-green" : ""} ${color.value === "pink" ? "bg-pink" : ""} ${color.value === "blue" ? "bg-blue" : ""} ${color.checked === true ? "h-12 w-12" : ""} h-8 w-8 rounded-full transition-all`}
                     ></div>
                   </label>
                 </div>

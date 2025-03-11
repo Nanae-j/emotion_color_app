@@ -17,8 +17,14 @@ const Header = () => {
         </Link>
       </h1>
 
-      <div className="inline-block">
+      <div className="flex items-center gap-3">
         <SignedIn>
+          <Link
+            href="/profile"
+            className="hover:text-orange p-1 text-sm transition-all"
+          >
+            プロフィール
+          </Link>
           <UserButton
             showName={true}
             appearance={{
