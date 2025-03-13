@@ -4,3 +4,38 @@ export type EmotionColor = {
   value: string; // 色の値（例えば "green", "yellow" など）
   checked?: boolean; // チェックされたかどうか (オプション)
 };
+
+// `emotion` が `colorsData` 内のいずれかの値であることを型で保証する
+export type Emotion =
+  | "unhurried"
+  | "excited"
+  | "smiling"
+  | "thrill"
+  | "irritation"
+  | "sniffling"
+  | "uneasiness";
+
+export type Post = {
+  user: {
+    name: string;
+    id: string;
+    email: string;
+    username: string;
+    bio: string | null;
+    image: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+  actions: {
+    type: "EMPATHY" | "SUPPORT" | "EXPERIENCE";
+    userId: string;
+  }[];
+  colors: {
+    color: string;
+  }[];
+  id: string;
+  content: string;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

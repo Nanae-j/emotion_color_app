@@ -42,11 +42,11 @@ interface PostListItemProps {
 const PostListItem = async ({ post }: PostListItemProps) => {
   const actionCounts = await getActionCounts(post.id);
 
-  console.log(post);
-
   return (
     <>
-      <li className="border-yellow mb-8 min-h-30 rounded-md border-2 p-5">
+      <li
+        className={`mb-8 min-h-30 rounded-md border-2 p-5 ${post.colors[0].color === "green" && "border-green"} ${post.colors[0].color === "yellow" && "border-yellow"} ${post.colors[0].color === "orange" && "border-orange"} ${post.colors[0].color === "pink" && "border-pink"} ${post.colors[0].color === "red" && "border-red"} ${post.colors[0].color === "blue" && "border-blue"} ${post.colors[0].color === "purple" && "border-purple"} `}
+      >
         <Link href={`/post/${post.id}`}>
           <div className="mb-5 flex items-center gap-3">
             <div className="relative -z-10 h-[50px] w-[50px] overflow-hidden rounded-full">
@@ -71,31 +71,43 @@ const PostListItem = async ({ post }: PostListItemProps) => {
             className="mb-5"
             dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
           />
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              <button>
-                <FaRegHeart />
-              </button>
-              <span>{actionCounts.EMPATHY}</span>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1">
+                <button>
+                  <FaRegHeart />
+                </button>
+                <span>{actionCounts.EMPATHY}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <button>
+                  <GoMegaphone className="stroke-1" />
+                </button>
+                <span>{actionCounts.SUPPORT}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <button className="">
+                  <LuHandHeart />
+                </button>
+                <span>{actionCounts.EXPERIENCE}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <button className="">
+                  <FaRegCommentDots />
+                </button>
+                <span>{post._count.comments}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <button>
-                <GoMegaphone className="stroke-1" />
-              </button>
-              <span>{actionCounts.SUPPORT}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <button className="">
-                <LuHandHeart />
-              </button>
-              <span>{actionCounts.EXPERIENCE}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <button className="">
-                <FaRegCommentDots />
-              </button>
-              <span>{post._count.comments}</span>
-            </div>
+            {post.colors && (
+              <ul className="flex items-center gap-4">
+                {post.colors.map((color, index) => (
+                  <li
+                    key={index}
+                    className={`h-8 w-8 rounded-full bg-${color.color}`}
+                  ></li>
+                ))}
+              </ul>
+            )}
           </div>
         </Link>
       </li>

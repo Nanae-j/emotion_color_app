@@ -1,6 +1,6 @@
 "use server";
 
-import { colors } from "@/data/colorsData";
+import { colorsData } from "@/data/colorsData";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
@@ -46,9 +46,9 @@ export async function addPostAction(
         message: "少なくとも1つの色が選択されている必要があります",
       });
 
-    const createColors = colors
+    const createColors = colorsData
       .map((color) => {
-        const newColor = formData.get(color.emotion);
+        const newColor = formData.get(color.value);
 
         if (newColor) {
           return { color: newColor as string };

@@ -1,7 +1,7 @@
 "use client";
 
 import { addPostAction } from "@/actions/addPostAction";
-import { colors } from "@/data/colorsData";
+import { colorsData } from "@/data/colorsData";
 import { EmotionColor } from "@/types/types";
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -17,7 +17,8 @@ const PostForm = () => {
     },
   };
 
-  const [selectedColors, setSelectedColors] = useState<EmotionColor[]>(colors);
+  const [selectedColors, setSelectedColors] =
+    useState<EmotionColor[]>(colorsData);
   const [state, formAction] = useActionState(addPostAction, initialState);
   const [postContent, setPostContent] = useState("");
 
@@ -51,7 +52,7 @@ const PostForm = () => {
     const newColors = selectedColors.map((color) => {
       const newColor = { ...color };
 
-      if (newColor.emotion === e.target.value) {
+      if (newColor.value === e.target.value) {
         newColor.checked = !newColor.checked;
       }
 
@@ -66,7 +67,7 @@ const PostForm = () => {
     // 現在選択されている感情を記録
     const selectedEmotions = selectedColors
       .filter((color) => color.checked)
-      .map((color) => color.emotion);
+      .map((color) => color.value);
 
     // フォームデータに現在の状態を追加
     formData.append(
@@ -136,11 +137,11 @@ const PostForm = () => {
                 <input
                   type="checkbox"
                   id={`color-${index}`}
-                  value={color.emotion}
+                  value={color.value}
                   className="sr-only" // デフォルトのチェックボックスを非表示
                   checked={color.checked}
                   onChange={handleChange}
-                  name={color.emotion}
+                  name={color.value}
                 />
                 <div className="inline-block">
                   <label
