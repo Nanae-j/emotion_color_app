@@ -5,6 +5,8 @@ import { LuHandHeart } from "react-icons/lu";
 import { FaRegCommentDots } from "react-icons/fa";
 import Link from "next/link";
 import { getActionCounts } from "@/utils/getActionCounts";
+import { formatDate } from "@/utils/formatDate";
+import { formatContent } from "@/utils/formatContent";
 
 interface PostListItemProps {
   post: {
@@ -40,6 +42,8 @@ interface PostListItemProps {
 const PostListItem = async ({ post }: PostListItemProps) => {
   const actionCounts = await getActionCounts(post.id);
 
+  console.log(post);
+
   return (
     <>
       <li className="border-yellow mb-8 min-h-30 rounded-md border-2 p-5">
@@ -60,10 +64,13 @@ const PostListItem = async ({ post }: PostListItemProps) => {
             </div>
             <div>
               <p>{post.user.name}</p>
-              <p>{new Date(post.createdAt).toLocaleDateString()}</p>
+              <p>{formatDate(post.createdAt)}</p>
             </div>
           </div>
-          <p className="mb-5">{post.content}</p>
+          <p
+            className="mb-5"
+            dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
+          />
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <button>
