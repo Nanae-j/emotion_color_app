@@ -33,6 +33,7 @@ const PostList = async () => {
       _count: {
         select: {
           comments: true,
+          actions: true
         },
       },
     },

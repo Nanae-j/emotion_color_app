@@ -1,5 +1,6 @@
 import { EmotionColor } from "@/types/types";
 
+// valueはtaiwindのcolorと同様
 export const colors: EmotionColor[] = [
   { emotion: "unhurried", label: "ノンビリ", value: "green", checked: false },
   { emotion: "excited", label: "ワクワク", value: "yellow", checked: false },

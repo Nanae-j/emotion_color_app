@@ -4,6 +4,7 @@ import { GoMegaphone } from "react-icons/go";
 import { LuHandHeart } from "react-icons/lu";
 import { FaRegCommentDots } from "react-icons/fa";
 import Link from "next/link";
+import { getActionCounts } from "@/utils/getActionCounts";
 
 interface PostListItemProps {
   post: {
@@ -26,6 +27,7 @@ interface PostListItemProps {
     }[];
     _count: {
       comments: number;
+      actions: number;
     };
     id: string;
     content: string;
@@ -35,8 +37,9 @@ interface PostListItemProps {
   };
 }
 
-const PostListItem = ({ post }: PostListItemProps) => {
-  console.log(post);
+const PostListItem = async ({ post }: PostListItemProps) => {
+  const actionCounts = await getActionCounts(post.id);
+
   return (
     <>
       <li className="border-yellow mb-8 min-h-30 rounded-md border-2 p-5">
@@ -44,7 +47,11 @@ const PostListItem = ({ post }: PostListItemProps) => {
           <div className="mb-5 flex items-center gap-3">
             <div className="relative -z-10 h-[50px] w-[50px] overflow-hidden rounded-full">
               <Image
-                src={post.user.image ? post.user.image : "https://placehold.jp/150x150.png"}
+                src={
+                  post.user.image
+                    ? post.user.image
+                    : "https://placehold.jp/150x150.png"
+                }
                 alt="user"
                 width={30}
                 height={30}
@@ -62,19 +69,19 @@ const PostListItem = ({ post }: PostListItemProps) => {
               <button>
                 <FaRegHeart />
               </button>
-              <span>0</span>
+              <span>{actionCounts.EMPATHY}</span>
             </div>
             <div className="flex items-center gap-1">
               <button>
                 <GoMegaphone className="stroke-1" />
               </button>
-              <span>0</span>
+              <span>{actionCounts.SUPPORT}</span>
             </div>
             <div className="flex items-center gap-1">
               <button className="">
                 <LuHandHeart />
               </button>
-              <span>0</span>
+              <span>{actionCounts.EXPERIENCE}</span>
             </div>
             <div className="flex items-center gap-1">
               <button className="">
