@@ -33,6 +33,10 @@ export type Post = {
   colors: {
     color: string;
   }[];
+  _count: {
+    comments: number;
+    actions: number;
+  };
   id: string;
   content: string;
   userId: string;

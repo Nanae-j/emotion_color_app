@@ -1,48 +1,16 @@
 import Image from "next/image";
-import { FaRegHeart } from "react-icons/fa";
-import { GoMegaphone } from "react-icons/go";
-import { LuHandHeart } from "react-icons/lu";
-import { FaRegCommentDots } from "react-icons/fa";
 import Link from "next/link";
-import { getActionCounts } from "@/utils/getActionCounts";
 import { formatDate } from "@/utils/formatDate";
 import { formatContent } from "@/utils/formatContent";
 import { generateBorderClass } from "@/utils/generateColorClass";
+import PostInteraction from "./PostInteraction";
+import { Post } from "@/types/types";
 
 interface PostListItemProps {
-  post: {
-    user: {
-      name: string;
-      id: string;
-      email: string;
-      username: string;
-      bio: string | null;
-      image: string | null;
-      createdAt: Date;
-      updatedAt: Date;
-    };
-    actions: {
-      type: "EMPATHY" | "SUPPORT" | "EXPERIENCE";
-      userId: string;
-    }[];
-    colors: {
-      color: string;
-    }[];
-    _count: {
-      comments: number;
-      actions: number;
-    };
-    id: string;
-    content: string;
-    userId: string;
-    createdAt: Date;
-    updatedAt: Date;
-  };
+  post: Post;
 }
 
 const PostListItem = async ({ post }: PostListItemProps) => {
-  const actionCounts = await getActionCounts(post.id);
-
   const borderColor = generateBorderClass(post.colors[0].color);
 
   return (
@@ -74,30 +42,7 @@ const PostListItem = async ({ post }: PostListItemProps) => {
           />
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1">
-                <button>
-                  <FaRegHeart />
-                </button>
-                <span>{actionCounts.EMPATHY}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <button>
-                  <GoMegaphone className="stroke-1" />
-                </button>
-                <span>{actionCounts.SUPPORT}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <button className="">
-                  <LuHandHeart />
-                </button>
-                <span>{actionCounts.EXPERIENCE}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <button className="">
-                  <FaRegCommentDots />
-                </button>
-                <span>{post._count.comments}</span>
-              </div>
+              <PostInteraction post={post} />
             </div>
             {post.colors && (
               <ul className="flex items-center gap-4">
