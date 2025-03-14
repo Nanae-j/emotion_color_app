@@ -3,6 +3,7 @@
 import { addPostAction } from "@/actions/addPostAction";
 import { colorsData } from "@/data/colorsData";
 import { EmotionColor } from "@/types/types";
+import { generateBgClass, generateTextClass } from "@/utils/generateColorClass";
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { FiSend } from "react-icons/fi";
@@ -118,11 +119,9 @@ const PostForm = () => {
         <p className="flex items-center gap-1">
           今の気分は：
           {selectedColors.map((color) => {
+            const textColor = generateTextClass(color.value);
             return color.checked ? (
-              <span
-                key={color.label}
-                className={`${color.value === "purple" ? "text-purple" : ""} ${color.value === "red" ? "text-red" : ""} ${color.value === "orange" ? "text-orange" : ""} ${color.value === "yellow" ? "text-yellow" : ""} ${color.value === "green" ? "text-green" : ""} ${color.value === "pink" ? "text-pink" : ""} ${color.value === "blue" ? "text-blue" : ""}`}
-              >
+              <span key={color.label} className={`${textColor}`}>
                 {color.label}
               </span>
             ) : (
@@ -132,6 +131,7 @@ const PostForm = () => {
         </p>
         <div className="my-5 flex flex-wrap items-center gap-5">
           {selectedColors.map((color, index) => {
+            const bgColor = generateBgClass(color.value);
             return (
               <div key={color.value}>
                 <input
@@ -149,7 +149,7 @@ const PostForm = () => {
                     className="flex cursor-pointer flex-col items-center"
                   >
                     <div
-                      className={` ${color.value === "purple" ? "bg-purple" : ""} ${color.value === "red" ? "bg-red" : ""} ${color.value === "orange" ? "bg-orange" : ""} ${color.value === "yellow" ? "bg-yellow" : ""} ${color.value === "green" ? "bg-green" : ""} ${color.value === "pink" ? "bg-pink" : ""} ${color.value === "blue" ? "bg-blue" : ""} ${color.checked === true ? "h-12 w-12" : ""} h-8 w-8 rounded-full transition-all`}
+                      className={`${bgColor} h-8 w-8 rounded-full transition-all`}
                     ></div>
                   </label>
                 </div>

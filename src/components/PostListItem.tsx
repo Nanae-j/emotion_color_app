@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getActionCounts } from "@/utils/getActionCounts";
 import { formatDate } from "@/utils/formatDate";
 import { formatContent } from "@/utils/formatContent";
+import { generateBorderClass } from "@/utils/generateColorClass";
 
 interface PostListItemProps {
   post: {
@@ -42,11 +43,11 @@ interface PostListItemProps {
 const PostListItem = async ({ post }: PostListItemProps) => {
   const actionCounts = await getActionCounts(post.id);
 
+  const borderColor = generateBorderClass(post.colors[0].color);
+
   return (
     <>
-      <li
-        className={`mb-8 min-h-30 rounded-md border-2 p-5 ${post.colors[0].color === "green" && "border-green"} ${post.colors[0].color === "yellow" && "border-yellow"} ${post.colors[0].color === "orange" && "border-orange"} ${post.colors[0].color === "pink" && "border-pink"} ${post.colors[0].color === "red" && "border-red"} ${post.colors[0].color === "blue" && "border-blue"} ${post.colors[0].color === "purple" && "border-purple"} `}
-      >
+      <li className={`mb-8 min-h-30 rounded-md border-2 p-5 ${borderColor}`}>
         <Link href={`/post/${post.id}`}>
           <div className="mb-5 flex items-center gap-3">
             <div className="relative -z-10 h-[50px] w-[50px] overflow-hidden rounded-full">
