@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import { formatDate } from "@/utils/formatDate";
 import { formatContent } from "@/utils/formatContent";
 import { generateBorderClass } from "@/utils/generateColorClass";
@@ -16,7 +16,7 @@ const PostListItem = async ({ post }: PostListItemProps) => {
   return (
     <>
       <li className={`mb-8 min-h-30 rounded-md border-2 p-5 ${borderColor}`}>
-        <Link href={`/post/${post.id}`}>
+        <div>
           <div className="mb-5 flex items-center gap-3">
             <div className="relative -z-10 h-[50px] w-[50px] overflow-hidden rounded-full">
               <Image
@@ -55,7 +55,7 @@ const PostListItem = async ({ post }: PostListItemProps) => {
               </ul>
             )}
           </div>
-        </Link>
+        </div>
       </li>
     </>
   );

@@ -13,7 +13,7 @@ export default function Home() {
         <SignOutAlert />
         <div className="max-w-theme-max-width mx-auto px-5 pt-30 pb-20 md:px-10 md:pt-40">
           <PostForm />
-          <div>
+          <div className="pb-3">
             <h2 className="text-default mb-4 flex items-center gap-3 text-3xl font-bold tracking-wider">
               <span>
                 <FaClockRotateLeft />
