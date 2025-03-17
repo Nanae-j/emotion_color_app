@@ -1,3 +1,5 @@
+import { ActionType } from "@prisma/client";
+
 export type EmotionColor = {
   emotion: string; // 感情名
   label: string; // ラベル（日本語）
@@ -27,7 +29,7 @@ export type Post = {
     updatedAt: Date;
   };
   actions: {
-    type: "EMPATHY" | "SUPPORT" | "EXPERIENCE";
+    type: ActionType;
     userId: string;
   }[];
   colors: {
