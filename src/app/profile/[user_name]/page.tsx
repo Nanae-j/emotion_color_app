@@ -1,5 +1,6 @@
 import PostList from "@/components/PostList";
 import { prisma } from "@/lib/prisma";
+import { getUserCountData } from "@/utils/getUserCountData";
 import Image from "next/image";
 
 type ProfileParams = {
@@ -22,29 +23,9 @@ const ProfilePage = async ({ params }: ProfileParams) => {
     return;
   }
 
-  const userPostCountData = await prisma.post.aggregate({
-    where: {
-      userId: userData.id,
-    },
-    _count: true,
-  });
-
-  // フォローしているカウント
-  const userFollowingCountData = await prisma.follow.aggregate({
-    where: {
-      followerId: userData.id,
-    },
-    _count: true,
-  });
-
-  // フォローされているカウント
-  const userFollowedByCountData = await prisma.follow.aggregate({
-    where: {
-      // フォローされているユーザーの項目に自分のIdがある = フォローされている
-      followingId: userData.id,
-    },
-    _count: true,
-  });
+  // 投稿数の取得
+  const { postCountData, followingCountData, FollowedByCountData } =
+    await getUserCountData(userData.id);
 
   return (
     <div>
@@ -73,20 +54,16 @@ const ProfilePage = async ({ params }: ProfileParams) => {
               <div className="flex gap-8">
                 <div className="flex flex-col items-center">
                   <div className="text-2xl font-bold">
-                    {userFollowedByCountData._count}
+                    {FollowedByCountData}
                   </div>
                   <div className="text-muted-foreground">Followers</div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="text-2xl font-bold">
-                    {userFollowingCountData._count}
-                  </div>
+                  <div className="text-2xl font-bold">{followingCountData}</div>
                   <div className="text-muted-foreground">Following</div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="text-2xl font-bold">
-                    {userPostCountData._count}
-                  </div>
+                  <div className="text-2xl font-bold">{postCountData}</div>
                   <div className="text-muted-foreground">Post</div>
                 </div>
               </div>
