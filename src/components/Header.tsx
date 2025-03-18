@@ -48,7 +48,7 @@ const Header = async () => {
             showName={true}
             appearance={{
               elements: {
-                userButtonOuterIdentifier: "!text-default",
+                userButtonOuterIdentifier: "!text-default !hidden",
                 userButtonAvatarBox: "md:!w-[50px] md:!h-[50px]",
               },
             }}

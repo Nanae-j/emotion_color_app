@@ -1,4 +1,3 @@
-import { GoMegaphone } from "react-icons/go";
 import { LuHandHeart } from "react-icons/lu";
 import { FaRegCommentDots } from "react-icons/fa";
 import { getActionData } from "@/utils/getActionData";
@@ -7,6 +6,8 @@ import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import EmpathyInteraction from "./EmpathyInteraction";
 import { ActionType } from "@prisma/client";
+import SupportInteraction from "./SupportInterraction";
+import ExperienceInteraction from "./ExperienceInteraction";
 
 interface PostInteractionProps {
   post: Post;
@@ -38,20 +39,18 @@ const PostInteraction = async ({ post }: PostInteractionProps) => {
         />
       </div>
       <div className="flex items-center gap-1">
-        <form action="" className="flex items-center justify-center">
-          <button>
-            <GoMegaphone className="stroke-1" />
-          </button>
-        </form>
-        <span>{actionData.counts.SUPPORT}</span>
+        <SupportInteraction
+          actionData={actionData}
+          postID={postID}
+          existingSupport={getExistingFlag("SUPPORT", userId)}
+        />
       </div>
       <div className="flex items-center gap-1">
-        <form action="" className="flex items-center justify-center">
-          <button className="">
-            <LuHandHeart />
-          </button>
-        </form>
-        <span>{actionData.counts.EXPERIENCE}</span>
+        <ExperienceInteraction
+          actionData={actionData}
+          postID={postID}
+          existingExperience={getExistingFlag("EXPERIENCE", userId)}
+        />
       </div>
       <Link href={`/post/${post.id}`} className="flex items-center gap-1">
         <button className="">
