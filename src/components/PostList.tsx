@@ -1,8 +1,12 @@
 import { getPosts } from "@/utils/getPosts";
 import PostListItem from "./PostListItem";
 
-const PostList = async () => {
-  const posts = await getPosts();
+interface PostListProps {
+  username: string;
+}
+
+const PostList = async ({ username }: PostListProps) => {
+  const posts = await getPosts(username);
 
   if (!posts) {
     throw new Error("ポストの情報が取得できませんでした");

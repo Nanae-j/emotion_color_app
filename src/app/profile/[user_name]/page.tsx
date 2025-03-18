@@ -1,7 +1,15 @@
 import PostList from "@/components/PostList";
 import Image from "next/image";
 
-const ProfilePage = () => {
+type ProfileParams = {
+  params: {
+    user_name: string;
+  };
+};
+
+const ProfilePage = async ({ params }: ProfileParams) => {
+  const resolvedParams = await params;
+  const username = resolvedParams.user_name;
   return (
     <div>
       <main className="h-screen overflow-x-hidden">
@@ -46,8 +54,7 @@ const ProfilePage = () => {
             </div>
             {/* フォローボタン */}
           </article>
-
-          <PostList />
+          <PostList username={username} />
         </div>
       </main>
     </div>

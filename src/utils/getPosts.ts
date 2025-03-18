@@ -7,9 +7,10 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
-export async function getPosts() {
+export async function getPosts(username: string) {
   try {
     let posts = [];
+    let followingUsers = [];
 
     const { userId } = await auth();
 
@@ -17,36 +18,82 @@ export async function getPosts() {
       return [];
     }
 
-    posts = await prisma.post.findMany({
-      where: {
-        userId: {
-          in: [userId],
+    // プロフィールページ(ログインしているユーザーの投稿のみを取得)
+    if (username) {
+      posts = await prisma.post.findMany({
+        where: {
+          userId: userId,
         },
-      },
-      include: {
-        user: true,
-        actions: {
-          select: {
-            type: true,
-            userId: true,
+        include: {
+          user: true,
+          actions: {
+            select: {
+              type: true,
+              userId: true,
+            },
+          },
+          colors: {
+            select: {
+              color: true,
+            },
+          },
+          _count: {
+            select: {
+              comments: true,
+              actions: true,
+            },
           },
         },
-        colors: {
-          select: {
-            color: true,
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } else {
+      // トップページ(フォロしているユーザーの投稿も取得)
+      followingUsers = await prisma.follow.findMany({
+        where: {
+          followerId: userId,
+        },
+        select: {
+          followingId: true,
+        },
+      });
+
+      const followingIdArray = followingUsers.map((item) => item.followingId);
+
+      const ids = [userId, ...followingIdArray];
+
+      posts = await prisma.post.findMany({
+        where: {
+          userId: {
+            in: ids,
           },
         },
-        _count: {
-          select: {
-            comments: true,
-            actions: true,
+        include: {
+          user: true,
+          actions: {
+            select: {
+              type: true,
+              userId: true,
+            },
+          },
+          colors: {
+            select: {
+              color: true,
+            },
+          },
+          _count: {
+            select: {
+              comments: true,
+              actions: true,
+            },
           },
         },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    }
 
     return posts;
   } catch (error) {
