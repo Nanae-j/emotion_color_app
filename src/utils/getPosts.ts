@@ -20,9 +20,22 @@ export async function getPosts(username?: string) {
 
     // プロフィールページ(ログインしているユーザーの投稿のみを取得)
     if (username) {
+      const userID = await prisma.user.findFirst({
+        where: {
+          username: username,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      if (!userID) {
+        throw new Error("ユーザーIDが取得できません");
+      }
+
       posts = await prisma.post.findMany({
         where: {
-          userId: userId,
+          userId: userID.id,
         },
         include: {
           user: true,
