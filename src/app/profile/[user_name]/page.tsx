@@ -100,6 +100,7 @@ const ProfilePage = async ({ params }: ProfileParams) => {
 
             {/* フォローボタン */}
             <FollowButton
+              currentUserId={userData.id}
               isViewingOwnProfile={isViewingOwnProfile}
               isFollowing={isFollowing}
             />
