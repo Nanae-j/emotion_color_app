@@ -5,6 +5,7 @@ import { formatContent } from "@/utils/formatContent";
 import { generateBorderClass } from "@/utils/generateColorClass";
 import PostInteraction from "./PostInteraction";
 import { Post } from "@/types/types";
+import Link from "next/link";
 
 interface PostListItemProps {
   post: Post;
@@ -13,24 +14,28 @@ interface PostListItemProps {
 const PostListItem = async ({ post }: PostListItemProps) => {
   const borderColor = generateBorderClass(post.colors[0].color);
 
+  // console.log(post);
+
   return (
     <>
       <li className={`mb-8 min-h-30 rounded-md border-2 p-5 ${borderColor}`}>
         <div>
           <div className="mb-5 flex items-center gap-3">
-            <div className="relative -z-10 h-[50px] w-[50px] overflow-hidden rounded-full">
-              <Image
-                src={
-                  post.user.image
-                    ? post.user.image
-                    : "https://placehold.jp/150x150.png"
-                }
-                alt="user"
-                width={30}
-                height={30}
-                className="absolute top-1/2 left-1/2 h-full w-full -translate-1/2"
-              />
-            </div>
+            <Link href={`/profile/${post.user.username}`}>
+              <div className="relative -z-10 h-[50px] w-[50px] overflow-hidden rounded-full">
+                <Image
+                  src={
+                    post.user.image
+                      ? post.user.image
+                      : "https://placehold.jp/150x150.png"
+                  }
+                  alt="user"
+                  width={30}
+                  height={30}
+                  className="absolute top-1/2 left-1/2 h-full w-full -translate-1/2"
+                />
+              </div>
+            </Link>
             <div>
               <p>{post.user.name}</p>
               <p>{formatDate(post.createdAt)}</p>

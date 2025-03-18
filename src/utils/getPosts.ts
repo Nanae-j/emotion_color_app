@@ -14,7 +14,7 @@ export async function getPosts() {
     const { userId } = await auth();
 
     if (!userId) {
-      return;
+      return [];
     }
 
     posts = await prisma.post.findMany({

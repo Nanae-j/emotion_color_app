@@ -31,8 +31,10 @@ const EmpathyInteraction = ({
     // updateFn
     (currentState) => {
       if (existingEmpathy) {
+        existingEmpathy = !existingEmpathy;
         return currentState - 1;
       } else {
+        existingEmpathy = !existingEmpathy;
         return currentState + 1;
       }
     }
@@ -54,11 +56,13 @@ const EmpathyInteraction = ({
         action={handleEmpathyInteraction}
         className="flex items-center justify-center"
       >
-        <button>
+        <button className={existingEmpathy ? "text-red" : ""}>
           <FaRegHeart />
         </button>
       </form>
-      <span>{empathyOptimisticState}</span>
+      <span className={existingEmpathy ? "text-red" : ""}>
+        {empathyOptimisticState}
+      </span>
     </>
   );
 };

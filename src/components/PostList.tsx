@@ -4,9 +4,13 @@ import PostListItem from "./PostListItem";
 const PostList = async () => {
   const posts = await getPosts();
 
+  if (!posts) {
+    throw new Error("ポストの情報が取得できませんでした");
+  }
+
   return (
     <div className="">
-      {posts ? (
+      {posts.length >= 1 ? (
         <ul className="h-[80vh] overflow-y-scroll py-10 md:px-5">
           {posts.map((post) => (
             <PostListItem key={post.id} post={post} />
