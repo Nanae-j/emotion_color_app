@@ -1,6 +1,7 @@
+import FollowButton from "@/components/FollowButton";
 import PostList from "@/components/PostList";
 import { prisma } from "@/lib/prisma";
-import { getUserCountData } from "@/utils/getUserCountData";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 
 type ProfileParams = {
@@ -12,10 +13,31 @@ type ProfileParams = {
 const ProfilePage = async ({ params }: ProfileParams) => {
   const resolvedParams = await params;
   const username = resolvedParams.user_name;
+  const { userId } = await auth();
+
+  if (!userId) {
+    return;
+  }
 
   const userData = await prisma.user.findFirst({
     where: {
       username: username,
+    },
+    include: {
+      _count: {
+        select: {
+          following: true,
+          followedBy: true,
+          posts: true,
+        },
+      },
+
+      //現在ログインしているユーザーにフォローされているかを確認
+      followedBy: {
+        where: {
+          followerId: userId,
+        },
+      },
     },
   });
 
@@ -23,9 +45,11 @@ const ProfilePage = async ({ params }: ProfileParams) => {
     return;
   }
 
-  // 投稿数の取得
-  const { postCountData, followingCountData, FollowedByCountData } =
-    await getUserCountData(userData.id);
+  // 自分のプロフィールページを見ているかの判定フラグ
+  const isViewingOwnProfile = userId === userData.id;
+
+  //フォローされていれば配列の中にオブジェクトが入る = lengthは1以上になる
+  const isFollowing = userData.followedBy.length > 0;
 
   return (
     <div>
@@ -54,16 +78,20 @@ const ProfilePage = async ({ params }: ProfileParams) => {
               <div className="flex gap-8">
                 <div className="flex flex-col items-center">
                   <div className="text-2xl font-bold">
-                    {FollowedByCountData}
+                    {userData._count.followedBy}
                   </div>
                   <div className="text-muted-foreground">Followers</div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="text-2xl font-bold">{followingCountData}</div>
+                  <div className="text-2xl font-bold">
+                    {userData._count.following}
+                  </div>
                   <div className="text-muted-foreground">Following</div>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="text-2xl font-bold">{postCountData}</div>
+                  <div className="text-2xl font-bold">
+                    {userData._count.posts}
+                  </div>
                   <div className="text-muted-foreground">Post</div>
                 </div>
               </div>
@@ -71,13 +99,10 @@ const ProfilePage = async ({ params }: ProfileParams) => {
             {/* 画像・情報 */}
 
             {/* フォローボタン */}
-            <div>
-              <form action="">
-                <button className="transition-color rounded-md bg-blue-400 px-10 py-3 text-white hover:bg-white hover:text-blue-400 hover:outline-2 hover:outline-blue-400">
-                  フォロー
-                </button>
-              </form>
-            </div>
+            <FollowButton
+              isViewingOwnProfile={isViewingOwnProfile}
+              isFollowing={isFollowing}
+            />
             {/* フォローボタン */}
           </article>
           <PostList username={username} />
