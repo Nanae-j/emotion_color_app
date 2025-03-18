@@ -46,7 +46,7 @@ const FollowButton = ({
 
   const getButtonStyle = () => {
     if (isViewingOwnProfile) {
-      return "bg-default pointer-events-none opacity-20";
+      return "bg-default pointer-events-none opacity-20 text-white";
     } else if (!isViewingOwnProfile && optimisticFollow.isFollowing) {
       return "bg-white text-blue-400 outline-2 outline-blue-400 hover:bg-blue-400 hover:text-white";
     } else if (!isViewingOwnProfile && !optimisticFollow.isFollowing) {

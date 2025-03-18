@@ -111,4 +111,19 @@ model Comment {
   // リレーション
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  colors    CommentColor[]  // コメントのカラー関連を追加
+}
+
+// コメントのカラー選択モデル（新規追加）
+model CommentColor {
+  id        String    @id @default(cuid())
+  commentId String
+  color     String    // カラーコードまたは名前
+  createdAt DateTime  @default(now())
+
+  // リレーション
+  comment   Comment   @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  // 同じコメントに同じカラーは一度だけ
+  @@unique([commentId, color])
 }

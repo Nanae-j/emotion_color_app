@@ -2,7 +2,7 @@ import { getPosts } from "@/utils/getPosts";
 import PostListItem from "./PostListItem";
 
 interface PostListProps {
-  username: string;
+  username?: string;
 }
 
 const PostList = async ({ username }: PostListProps) => {
