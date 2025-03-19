@@ -3,11 +3,10 @@
  * @param
  * @returns 各投稿情報をオブジェクト形式で配列として返却
  */
-
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 
-export async function getPosts(username?: string) {
+export async function getPosts(username?: string, color?: string) {
   try {
     let posts = [];
     let followingUsers = [];
@@ -36,6 +35,40 @@ export async function getPosts(username?: string) {
       posts = await prisma.post.findMany({
         where: {
           userId: userID.id,
+        },
+        include: {
+          user: true,
+          actions: {
+            select: {
+              type: true,
+              userId: true,
+            },
+          },
+          colors: {
+            select: {
+              color: true,
+            },
+          },
+          _count: {
+            select: {
+              comments: true,
+              actions: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } else if (color) {
+      // colorでフィルタリングする場合は特定のユーザーIDは不要
+      posts = await prisma.post.findMany({
+        where: {
+          colors: {
+            some: {
+              color: color,
+            },
+          },
         },
         include: {
           user: true,

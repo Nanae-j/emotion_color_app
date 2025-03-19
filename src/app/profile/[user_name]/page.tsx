@@ -1,8 +1,10 @@
+import NotFound from "@/app/not-found";
 import FollowButton from "@/components/FollowButton";
 import PostList from "@/components/PostList";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 type ProfileParams = {
   params: {
@@ -17,6 +19,22 @@ const ProfilePage = async ({ params }: ProfileParams) => {
 
   if (!userId) {
     return;
+  }
+
+  const users_usernames = await prisma.user.findMany({
+    select: {
+      username: true,
+    },
+  });
+
+  const users_usernames_array: string[] = [];
+  users_usernames.map((username) => {
+    users_usernames_array.push(username.username);
+  });
+
+  const isExistingUsers = users_usernames_array.includes(username);
+  if (!isExistingUsers) {
+    redirect("/");
   }
 
   const userData = await prisma.user.findFirst({
@@ -51,7 +69,11 @@ const ProfilePage = async ({ params }: ProfileParams) => {
   //フォローされていれば配列の中にオブジェクトが入る = lengthは1以上になる
   const isFollowing = userData.followedBy.length > 0;
 
-  return (
+  return !isExistingUsers ? (
+    <>
+      <NotFound />
+    </>
+  ) : (
     <div>
       <main className="h-screen overflow-x-hidden">
         <div className="max-w-theme-max-width mx-auto px-5 pt-30 pb-20 md:px-10 md:pt-40">
