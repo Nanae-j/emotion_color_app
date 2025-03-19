@@ -1,6 +1,6 @@
 "use client";
 
-import { addPostAction } from "@/actions/addPostAction";
+import { updatePostAction } from "@/actions/updatePostAction";
 import { colorsData } from "@/data/colorsData";
 import { EmotionColor, Post } from "@/types/types";
 import { generateBgClass, generateTextClass } from "@/utils/generateColorClass";
@@ -24,23 +24,42 @@ const PostEditForm = ({ post, onCancel, onSave }: PostEditForm) => {
     },
   };
 
-  const [selectedColors, setSelectedColors] =
-    useState<EmotionColor[]>(colorsData);
-  const [state, formAction] = useActionState(addPostAction, initialState);
-  const [postContent, setPostContent] = useState("");
+  // 初期値として現在の投稿内容と感情を設定
+  const [selectedColors, setSelectedColors] = useState<EmotionColor[]>(() => {
+    return colorsData.map((color) => ({
+      ...color,
+      // post.colorsは{color: string}[]の配列なので、各colorオブジェクトからcolorプロパティを抽出して比較
+      checked: post.colors?.some((item) => item.color === color.value) || false,
+    }));
+  });
+
+  const [state, formAction] = useActionState(updatePostAction, initialState);
+  // 投稿の現在のcontentをセット
+  const [postContent, setPostContent] = useState(post.content || "");
 
   // エラーが発生して状態が戻ってきた場合にフォームの状態を復元
   useEffect(() => {
     if (state.success) {
-      // 成功時にフォームをリセット
-      setPostContent("");
+      // 成功時に更新された投稿を親コンポーネントに通知
+      const updatedPost = {
+        ...post,
+        content: postContent,
+        colors: selectedColors
+          .filter((color) => color.checked)
+          .map((color) => ({ color: color.value })),
+      };
 
-      // すべての色の選択を解除
-      const resetColors = selectedColors.map((color) => ({
-        ...color,
-        checked: false,
-      }));
-      setSelectedColors(resetColors);
+      onSave(updatedPost).then(() => {
+        // 成功時にフォームをリセット
+        setPostContent("");
+
+        // すべての色の選択を解除
+        const resetColors = selectedColors.map((color) => ({
+          ...color,
+          checked: false,
+        }));
+        setSelectedColors(resetColors);
+      });
     } else if (state.error && state.formData) {
       // テキストエリアの内容を復元
       setPostContent(state.formData.postContent);
@@ -85,15 +104,13 @@ const PostEditForm = ({ post, onCancel, onSave }: PostEditForm) => {
       })
     );
 
+    // 投稿IDを追加して更新であることを示す
+    formData.append("postID", post.id || "");
+
     await formAction(formData);
 
-    // フォームをリセット (formActionの結果を待たずに実行)
-    setPostContent("");
-    const resetColors = selectedColors.map((color) => ({
-      ...color,
-      checked: false,
-    }));
-    setSelectedColors(resetColors);
+    // 注意: ここでフォームをリセットしないでください
+    // 成功時のリセットはuseEffectで処理します
   };
 
   const SubmitButton = () => {
@@ -109,7 +126,7 @@ const PostEditForm = ({ post, onCancel, onSave }: PostEditForm) => {
   };
 
   return (
-    <div className="mb-28">
+    <div>
       <div className="cursor-pointer py-3 text-red-500" onClick={onCancel}>
         編集をキャンセルする
       </div>
@@ -130,7 +147,7 @@ const PostEditForm = ({ post, onCancel, onSave }: PostEditForm) => {
           {selectedColors.map((color) => {
             const textColor = generateTextClass(color.value);
             return color.checked ? (
-              <span key={color.label} className={`${textColor}`}>
+              <span key={`edit_${color.label}`} className={`${textColor}`}>
                 {color.label}
               </span>
             ) : (
@@ -142,19 +159,19 @@ const PostEditForm = ({ post, onCancel, onSave }: PostEditForm) => {
           {selectedColors.map((color, index) => {
             const bgColor = generateBgClass(color.value);
             return (
-              <div key={color.value}>
+              <div key={`edit_${color.value}`}>
                 <input
                   type="checkbox"
-                  id={`color-${index}`}
+                  id={`color-edit-${index}`}
                   value={color.value}
-                  className="sr-only" // デフォルトのチェックボックスを非表示
+                  className="sr-only hidden" // デフォルトのチェックボックスを非表示
                   checked={color.checked}
                   onChange={handleChange}
                   name={color.value}
                 />
                 <div className="inline-block">
                   <label
-                    htmlFor={`color-${index}`}
+                    htmlFor={`color-edit-${index}`}
                     className="flex cursor-pointer flex-col items-center"
                   >
                     <div
