@@ -18,6 +18,9 @@ const CommentList = async ({ postID }: CommentListProps) => {
         },
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
   return (
     <ul className="mt-10 ml-auto w-[90%]">

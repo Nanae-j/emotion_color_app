@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { NextResponse } from "next/server";
 
 export async function deletePostAction(postID: string) {
   try {
@@ -32,5 +33,7 @@ export async function deletePostAction(postID: string) {
       console.error("投稿削除中にエラー:", deleteError);
       throw new Error("削除できませんでした");
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
