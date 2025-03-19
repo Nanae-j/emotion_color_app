@@ -156,7 +156,7 @@ const CommentForm = ({ post }: CommentForm) => {
                     className="flex cursor-pointer flex-col items-center"
                   >
                     <div
-                      className={`${bgColor} h-8 w-8 rounded-full transition-all`}
+                      className={`${bgColor} ${color.checked ? "h-10 w-10" : "h-8 w-8"} rounded-full transition-all`}
                     ></div>
                   </label>
                 </div>
