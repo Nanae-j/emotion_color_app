@@ -1,6 +1,6 @@
 import { Post } from "@/types/types";
 import { FaPen } from "react-icons/fa";
-import { FaTrashAlt } from "react-icons/fa";
+import PostDelete from "./PostDelete";
 
 interface PostEditDelete {
   post: Post;
@@ -16,9 +16,7 @@ const PostEditDelete = ({ post, onEditClick }: PostEditDelete) => {
         </button>
       </li>
       <li>
-        <button className="hover:text-red">
-          <FaTrashAlt />
-        </button>
+        <PostDelete postID={post.id} />
       </li>
     </ul>
   );

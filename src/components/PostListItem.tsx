@@ -8,6 +8,7 @@ import { Post } from "@/types/types";
 import Link from "next/link";
 import { PostEditDeleteManager, PostEditManager } from "./PostEditManager";
 import { PostEditProvider } from "./PostEditContext";
+import { auth } from "@clerk/nextjs/server";
 
 interface PostListItemProps {
   post: Post;
@@ -15,6 +16,9 @@ interface PostListItemProps {
 
 const PostListItem = async ({ post }: PostListItemProps) => {
   const borderColor = generateBorderClass(post.colors[0].color);
+
+  const { userId } = await auth();
+  const isOwnPost = userId === post.user.id;
 
   const postContent = (
     <>
@@ -67,7 +71,8 @@ const PostListItem = async ({ post }: PostListItemProps) => {
                   <p>{formatDate(post.createdAt)}</p>
                 </div>
               </div>
-              <PostEditDeleteManager post={post} />
+
+              {isOwnPost && <PostEditDeleteManager post={post} />}
             </div>
 
             {/* 編集機能はクライアントコンポーネントに委譲 */}
