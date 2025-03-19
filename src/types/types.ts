@@ -45,3 +45,25 @@ export type Post = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type Comment = {
+  user: {
+    name: string;
+    id: string;
+    email: string;
+    username: string;
+    bio: string | null;
+    image: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+  colors: {
+    color: string;
+  }[];
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  content: string;
+  userId: string;
+  postId: string;
+};
