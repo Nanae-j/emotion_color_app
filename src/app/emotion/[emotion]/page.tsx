@@ -10,13 +10,14 @@ interface EmotionFilterPageProps {
   };
 }
 
-const EmotionFilterPage = async ({ params }: EmotionFilterPageProps) => {
-  const resolvedParams = await params;
+export default async function EmotionFilterPage({
+  params,
+}: EmotionFilterPageProps) {
   const color = colorsData.find(
-    (item) => item.emotion === resolvedParams.emotion
+    (item) => item.emotion === params.emotion
   )?.value;
   const label = colorsData.find(
-    (item) => item.emotion === resolvedParams.emotion
+    (item) => item.emotion === params.emotion
   )?.label;
 
   return (
@@ -50,6 +51,4 @@ const EmotionFilterPage = async ({ params }: EmotionFilterPageProps) => {
       </main>
     </div>
   );
-};
-
-export default EmotionFilterPage;
+}
