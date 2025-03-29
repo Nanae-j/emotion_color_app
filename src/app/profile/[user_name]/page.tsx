@@ -7,9 +7,9 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 
 type ProfileParams = {
-  params: {
+  params: Promise<{
     user_name: string;
-  };
+  }>;
 };
 
 const ProfilePage = async ({ params }: ProfileParams) => {
