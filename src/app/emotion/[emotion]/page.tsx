@@ -5,19 +5,20 @@ import { GoMegaphone } from "react-icons/go";
 import { LuHandHeart } from "react-icons/lu";
 
 interface EmotionFilterPageProps {
-  params: {
+  params: Promise<{
     emotion: string;
-  };
+  }>;
 }
 
 export default async function EmotionFilterPage({
   params,
 }: EmotionFilterPageProps) {
+  const resolvedParams = await params;
   const color = colorsData.find(
-    (item) => item.emotion === params.emotion
+    (item) => item.emotion === resolvedParams.emotion
   )?.value;
   const label = colorsData.find(
-    (item) => item.emotion === params.emotion
+    (item) => item.emotion === resolvedParams.emotion
   )?.label;
 
   return (
