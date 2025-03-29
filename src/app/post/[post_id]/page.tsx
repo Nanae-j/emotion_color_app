@@ -16,12 +16,12 @@ import NotFound from "@/app/not-found";
 import { redirect } from "next/navigation";
 
 type PostPageParams = {
-  params: {
+  params: Promise<{
     post_id: string;
-  };
+  }>;
 };
 
-const PostPage = async ({ params }: PostPageParams) => {
+export default async function PostPage({ params }: PostPageParams) {
   const resolvedParams = await params;
   const postID = resolvedParams.post_id;
 
@@ -154,6 +154,4 @@ const PostPage = async ({ params }: PostPageParams) => {
       </main>
     </div>
   );
-};
-
-export default PostPage;
+}
