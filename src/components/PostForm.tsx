@@ -47,7 +47,7 @@ const PostForm = () => {
       }));
       setSelectedColors(restoredColors);
     }
-  }, [state.error, state.formData, state.success]);
+  }, [state.error, state.formData, state.success, selectedColors]);
 
   const handleChange = (e: { target: { value: string } }) => {
     const newColors = selectedColors.map((color) => {

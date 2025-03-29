@@ -2,7 +2,7 @@
 
 import { usePostEdit } from "./PostEditContext";
 import PostEditDelete from "./PostEditDelete";
-import { Post } from "@/types/types";
+import { Post, UpdatePost } from "@/types/types";
 import PostEditForm from "./PostEditForm";
 
 // 投稿の内容とフォームのコンポーネント - isEditingの値で切り替え
@@ -18,7 +18,8 @@ export const PostEditManager = ({ post, children }: PostEditManagerProps) => {
     setIsEditing(false);
   };
 
-  const handleSaveEdit = async (updatedPost) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleSaveEdit = async (_updatedPost: UpdatePost) => {
     // 保存処理は PostEditForm 内で行い、完了時に通知をもらう
     setIsEditing(false);
   };

@@ -2,7 +2,7 @@
 
 import { updateCommentAction } from "@/actions/updateCommentAction";
 import { colorsData } from "@/data/colorsData";
-import { EmotionColor, Comment } from "@/types/types";
+import { EmotionColor, Comment, UpdateCommentPost } from "@/types/types";
 import { generateBgClass, generateTextClass } from "@/utils/generateColorClass";
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -11,7 +11,7 @@ import { FiSend } from "react-icons/fi";
 interface PostEditForm {
   comment: Comment;
   onCancel: () => void;
-  onSave: (updatedPost: any) => Promise<void>;
+  onSave: (_updatedPost: UpdateCommentPost) => Promise<void>;
 }
 
 const CommentEditForm = ({ comment, onCancel, onSave }: PostEditForm) => {
@@ -73,7 +73,15 @@ const CommentEditForm = ({ comment, onCancel, onSave }: PostEditForm) => {
       }));
       setSelectedColors(restoredColors);
     }
-  }, [state.error, state.formData, state.success]);
+  }, [
+    state.error,
+    state.formData,
+    state.success,
+    comment,
+    onSave,
+    postContent,
+    selectedColors,
+  ]);
 
   const handleChange = (e: { target: { value: string } }) => {
     const newColors = selectedColors.map((color) => {

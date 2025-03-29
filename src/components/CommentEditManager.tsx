@@ -1,7 +1,7 @@
 "use client";
 
 import { useCommentEdit } from "./CommentEditContext";
-import { Comment } from "@/types/types";
+import { Comment, UpdateCommentPost } from "@/types/types";
 import CommentEditDelete from "./CommentEditDelete";
 import CommentEditForm from "./CommentEditForm";
 
@@ -21,7 +21,8 @@ export const CommentEditManager = ({
     setIsEditing(false);
   };
 
-  const handleSaveEdit = async (updatedPost) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleSaveEdit = async (_updatedPost: UpdateCommentPost) => {
     // 保存処理は PostEditForm 内で行い、完了時に通知をもらう
     setIsEditing(false);
   };

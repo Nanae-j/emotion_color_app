@@ -67,3 +67,50 @@ export type Comment = {
   userId: string;
   postId: string;
 };
+
+export type UpdatePost = {
+  content: string;
+  colors: {
+    color: string;
+  }[];
+  user: {
+    name: string;
+    id: string;
+    email: string;
+    username: string;
+    bio: string | null;
+    image: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+  actions: {
+    type: "EMPATHY" | "SUPPORT" | "EXPERIENCE";
+    userId: string;
+  }[];
+  id: string;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type UpdateCommentPost = {
+  content: string;
+  colors: {
+    color: string;
+  }[];
+  user: {
+    name: string;
+    id: string;
+    email: string;
+    username: string;
+    bio: string | null;
+    image: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
+  postId: string;
+};

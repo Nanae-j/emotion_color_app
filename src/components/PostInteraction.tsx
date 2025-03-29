@@ -1,4 +1,3 @@
-import { LuHandHeart } from "react-icons/lu";
 import { FaRegCommentDots } from "react-icons/fa";
 import { getActionData } from "@/utils/getActionData";
 import { Post } from "@/types/types";
