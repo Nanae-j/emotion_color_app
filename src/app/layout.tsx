@@ -13,16 +13,12 @@ export const metadata: Metadata = {
     title: "HueDay",
     description:
       "日々の出来事や感情を色で表現し、シェアするSNS。色を通じて毎日を豊かに感じよう。",
-    images: [
-      {
-        url: "/images/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "HueDay OGP Image",
-      },
-    ],
-    url: "https://www.hue-day.com/",
-    type: "website",
+  },
+  twitter: {
+    title: "HueDay",
+    description:
+      "日々の出来事や感情を色で表現し、シェアするSNS。色を通じて毎日を豊かに感じよう",
+    card: "summary_large_image",
   },
 };
 
