@@ -19,12 +19,8 @@ const Header = async () => {
     },
   });
 
-  // console.log(username);
-
-  // username が取得できていない場合、ローディング状態を表示する
-  if (!username) {
-    return <div>Loading...</div>;
-  }
+  console.log(userId);
+  console.log(username);
 
   return (
     <header className="fixed z-[999] flex w-full items-center justify-between rounded-b-2xl bg-white px-8 py-4 shadow">
