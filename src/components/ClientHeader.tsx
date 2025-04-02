@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { revalidateUser } from "@/actions/revalidateUser";
 
 // サーバーコンポーネントは直接インポートできないため、
 // クライアント側でUIを構築し、サーバーコンポーネントはページレベルで読み込む
@@ -15,12 +16,10 @@ const ClientHeader = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (isLoaded) {
-      setIsReady(true);
-      // 認証状態が変わったらページをリフレッシュ
-      if (!isSignedIn) {
-        router.refresh();
-      }
+    if (isLoaded && isSignedIn) {
+      revalidateUser().then(() => {
+        setIsReady(true);
+      });
     }
   }, [isLoaded, isSignedIn, router]);
 
