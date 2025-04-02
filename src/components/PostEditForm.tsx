@@ -72,15 +72,7 @@ const PostEditForm = ({ post, onCancel, onSave }: PostEditForm) => {
       }));
       setSelectedColors(restoredColors);
     }
-  }, [
-    state.error,
-    state.formData,
-    state.success,
-    onSave,
-    post,
-    postContent,
-    selectedColors,
-  ]);
+  }, [state.error, state.formData, state.success]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (e: { target: { value: string } }) => {
     const newColors = selectedColors.map((color) => {

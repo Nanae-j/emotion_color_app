@@ -52,7 +52,7 @@ const CommentForm = ({ post }: CommentForm) => {
       }));
       setSelectedColors(restoredColors);
     }
-  }, [state.error, state.formData, state.success]);
+  }, [state.error, state.formData, state.success]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (e: { target: { value: string } }) => {
     const newColors = selectedColors.map((color) => {

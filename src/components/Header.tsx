@@ -6,7 +6,6 @@ import Link from "next/link";
 
 const Header = async () => {
   const { userId } = await auth();
-
   if (!userId) {
     return;
   }

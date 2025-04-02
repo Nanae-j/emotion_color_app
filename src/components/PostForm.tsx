@@ -47,7 +47,7 @@ const PostForm = () => {
       }));
       setSelectedColors(restoredColors);
     }
-  }, [state.error, state.formData, state.success, selectedColors]);
+  }, [state.error, state.formData, state.success]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (e: { target: { value: string } }) => {
     const newColors = selectedColors.map((color) => {
