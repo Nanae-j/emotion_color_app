@@ -4,7 +4,9 @@ import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
-const Header = async () => {
+export const dynamic = "force-dynamic";
+
+const ServerHeader = async () => {
   const { userId } = await auth();
   if (!userId) {
     return null;
@@ -18,9 +20,6 @@ const Header = async () => {
       username: true,
     },
   });
-
-  console.log(userId);
-  console.log(username);
 
   return (
     <header className="fixed z-[999] flex w-full items-center justify-between rounded-b-2xl bg-white px-8 py-4 shadow">
@@ -59,4 +58,4 @@ const Header = async () => {
   );
 };
 
-export default Header;
+export default ServerHeader;

@@ -1,11 +1,15 @@
-import Header from "@/components/Header";
+import ClientHeader from "@/components/ClientHeader";
 import SignUpAnime from "@/components/lottie/SignUpAnime";
+import ServerHeader from "@/components/ServerHeader";
 import { SignIn } from "@clerk/nextjs";
 
 export default function Page() {
   return (
     <div className="relative">
-      <Header />
+      {/* クライアント側のローディング処理 */}
+      <ClientHeader />
+      {/* サーバー側のヘッダー */}
+      <ServerHeader />
       <main className="overflow-x-hidden">
         <div className="relative flex h-screen items-center justify-center">
           <div className="bg-base absolute h-full w-full opacity-90"></div>
