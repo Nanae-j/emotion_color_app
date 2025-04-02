@@ -56,7 +56,11 @@ const SupportInteraction = ({
         action={handleSupportInteraction}
         className="flex items-center justify-center"
       >
-        <button className={existingSupport ? "text-orange" : ""}>
+        <button
+          className={
+            existingSupport ? "text-orange cursor-pointer" : "cursor-pointer"
+          }
+        >
           <GoMegaphone className="stroke-1" />
         </button>
       </form>

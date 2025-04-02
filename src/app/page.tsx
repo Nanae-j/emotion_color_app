@@ -40,7 +40,7 @@ export default function Home() {
               </span>
               <span>Time Line</span>
             </h2>
-            <div className="text-lightgray flex items-center gap-2">
+            <div className="flex items-center gap-2 text-[#808080]">
               <span className="flex items-center gap-1">
                 <FaRegHeart />
                 <span className="tracking-widest">:共感</span>

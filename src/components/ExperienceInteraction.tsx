@@ -57,7 +57,7 @@ const ExperienceInteraction = ({
         className="flex items-center justify-center"
       >
         <button
-          className={`${existingExperience ? "text-green-800" : ""} text-lg`}
+          className={`${existingExperience ? "cursor-pointer text-green-800" : "cursor-pointer"} text-lg`}
         >
           <LuHandHeart />
         </button>

@@ -60,8 +60,8 @@ const PostListItem = async ({ post }: PostListItemProps) => {
                           : "https://placehold.jp/150x150.png"
                       }
                       alt="user"
-                      width={30}
-                      height={30}
+                      width={50}
+                      height={50}
                       className="absolute top-1/2 left-1/2 h-full w-full -translate-1/2"
                     />
                   </div>

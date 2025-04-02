@@ -80,7 +80,7 @@ const ProfilePage = async ({ params }: ProfileParams) => {
           <article className="mb-5 md:flex md:justify-between">
             {/* 画像・情報 */}
             <div className="mb-8 flex-1 md:mb-0">
-              <div className="flex flex-wrap items-center gap-x-5">
+              <div className="mb-5 flex flex-wrap items-center gap-x-5 md:mb-0">
                 <div className="relative -z-10 mb-5 h-[10rem] w-[10rem] overflow-hidden rounded-full">
                   <Image
                     src={
@@ -89,8 +89,8 @@ const ProfilePage = async ({ params }: ProfileParams) => {
                         : "https://placehold.jp/150x150.png"
                     }
                     alt="アバター"
-                    width={30}
-                    height={30}
+                    width={150}
+                    height={150}
                     className="absolute top-1/2 left-1/2 h-full w-full -translate-1/2"
                   />
                 </div>

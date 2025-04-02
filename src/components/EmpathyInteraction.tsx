@@ -56,7 +56,11 @@ const EmpathyInteraction = ({
         action={handleEmpathyInteraction}
         className="flex items-center justify-center"
       >
-        <button className={existingEmpathy ? "text-red" : ""}>
+        <button
+          className={
+            existingEmpathy ? "text-red cursor-pointer" : "cursor-pointer"
+          }
+        >
           <FaRegHeart />
         </button>
       </form>

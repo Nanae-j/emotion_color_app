@@ -52,7 +52,7 @@ const PostInteraction = async ({ post }: PostInteractionProps) => {
         />
       </div>
       <Link href={`/post/${post.id}`} className="flex items-center gap-1">
-        <button className="">
+        <button className="cursor-pointer">
           <FaRegCommentDots />
         </button>
         <span>{post._count.comments}</span>
