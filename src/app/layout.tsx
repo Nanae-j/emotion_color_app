@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "日々の出来事や感情を色で表現し、シェアするSNS。色を通じて毎日を豊かに感じよう。",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "HueDay OGP Image",
