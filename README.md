@@ -27,9 +27,13 @@
 </div>
 
 #### 使用ライブラリ
+
 <div>
   <!-- 使用ライブラリ -->
-  <p></p>
+  <p><a href="https://lottiefiles.com/jp/">Lottie</a></p>
+  <p><a href="https://www.prisma.io">prisma</a></p>
+  <p><a href="https://zod.dev/">zod</a></p>
+  <p><a href="https://tailwindcss.com/">tailwindcss</a></p>
 </div>
 
 
